@@ -10,7 +10,7 @@ from aiohttp import web
 
 # ---------- НАСТРОЙКИ (из переменных окружения) ----------
 BOT_TOKEN = os.getenv("BOT_TOKEN", "8610780281:AAFZxc5KSd4wEtUNZ4U47Poltu0jMVR-mbg")
-WEBAPP_URL = os.getenv("WEBAPP_URL", "https://musor_drop.bothost.ru")  # <-- ТВОЯ ССЫЛКА
+WEBAPP_URL = os.getenv("WEBAPP_URL", "https://sevelevd86-lgtm.github.io/musor_drop/")  # <-- ТВОЯ ССЫЛКА
 WEBAPP_PORT = int(os.getenv("PORT", 8080))
 
 # ---------- ЛОГГИНГ ----------
