@@ -12,7 +12,7 @@ import aiohttp
 
 # ---------- НАСТРОЙКИ (из переменных окружения) ----------
 BOT_TOKEN = os.getenv("BOT_TOKEN", "8610780281:AAFZxc5KSd4wEtUNZ4U47Poltu0jMVR-mbg")
-WEBAPP_URL = os.getenv("WEBAPP_URL", "https://ваш-домен.ру")  # <-- Заменить на bothost URL
+WEBAPP_URL = os.getenv("WEBAPP_URL", "https://musor_drop.bothost.ru")  # <-- Заменить на bothost URL
 WEBAPP_PORT = int(os.getenv("PORT", 8080))
 
 # ---------- ЛОГГИНГ ----------
