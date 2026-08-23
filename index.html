@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Casino</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        body {
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 70px;
+        }
+        .page {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            padding: 20px;
+        }
+        .page.active {
+            display: flex;
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #f0b90b;
+            text-shadow: 0 0 10px rgba(240, 185, 11, 0.3);
+        }
+
+        .casino-hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .casino-hero h1 {
+            font-size: 42px;
+            font-weight: 900;
+            color: #f0b90b;
+            text-shadow: 0 0 30px rgba(240, 185, 11, 0.5);
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+        .casino-hero .subtitle {
+            color: #aaa;
+            font-size: 16px;
+            margin-top: 8px;
+            letter-spacing: 2px;
+        }
+
+        .profile-card {
+            background: #1a1a24;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid #2a2a3a;
+        }
+        .profile-card .label {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+        .profile-card .value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .profile-card .balance {
+            font-size: 28px;
+            font-weight: 700;
+            color: #f0b90b;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            width: 100%;
+            margin-top: 8px;
+            background: #2a2a3a;
+            color: #fff;
+        }
+        .btn-primary {
+            background: #f0b90b;
+            color: #0a0a0f;
+        }
+        .btn-primary:active {
+            background: #d4a40a;
+        }
+        .btn-secondary {
+            background: #1a1a24;
+            border: 1px solid #f0b90b;
+            color: #f0b90b;
+        }
+        .btn-secondary:active {
+            background: #2a2a3a;
+        }
+
+        .input-field {
+            background: #1a1a24;
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: #fff;
+            font-size: 15px;
+            width: 100%;
+            outline: none;
+            transition: border 0.15s;
+        }
+        .input-field:focus {
+            border-color: #f0b90b;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .input-group .input-field {
+            flex: 1;
+        }
+        .input-group .btn {
+            width: auto;
+            padding: 12px 20px;
+            margin-top: 0;
+        }
+
+        .inventory-empty {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #666;
+        }
+        .inventory-empty .icon {
+            font-size: 56px;
+            margin-bottom: 16px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #0d0d14;
+            border-top: 1px solid #1a1a24;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 12px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #666;
+            font-size: 11px;
+            transition: color 0.15s;
+            cursor: pointer;
+            padding: 4px 12px;
+            background: none;
+            border: none;
+            font-family: inherit;
+        }
+        .nav-item .nav-icon {
+            font-size: 24px;
+            margin-bottom: 2px;
+        }
+        .nav-item.active {
+            color: #f0b90b;
+        }
+        .nav-item:active {
+            opacity: 0.6;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a24;
+            border: 1px solid #f0b90b;
+            padding: 14px 24px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 500;
+            z-index: 200;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            max-width: 90%;
+            text-align: center;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        .toast.error {
+            border-color: #ff4444;
+        }
+        .toast.success {
+            border-color: #44ff88;
+        }
+
+        .ref-link {
+            background: #1a1a24;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #aaa;
+            word-break: break-all;
+            margin-top: 8px;
+        }
+        .flex-row {
+            display: flex;
+            gap: 10px;
+        }
+        .flex-row .btn {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast" class="toast"></div>
+
+    <div id="page-games" class="page active">
+        <div class="casino-hero">
+            <h1>🎰 CASINO</h1>
+            <div style="font-size: 64px; margin: 20px 0;">🔥</div>
+            <div class="subtitle">Игры скоро будут доступны</div>
+            <div style="margin-top: 30px; color: #555; font-size: 13px;">Следите за обновлениями</div>
+        </div>
+    </div>
+
+    <div id="page-inventory" class="page">
+        <div class="inventory-empty">
+            <div class="icon">🎒</div>
+            <h2 style="color: #888; margin-bottom: 8px;">Инвентарь пуст</h2>
+            <p style="color: #555; font-size: 14px;">Приходите за скинами позже</p>
+        </div>
+    </div>
+
+    <div id="page-profile" class="page">
+        <div class="page-title">👤 Профиль</div>
+
+        <div class="profile-card">
+            <div class="label">Имя</div>
+            <div class="value" id="profile-name">Загрузка...</div>
+        </div>
+        <div class="profile-card">
+            <div class="label">ID</div>
+            <div class="value" id="profile-id">---</div>
+        </div>
+        <div class="profile-card">
+            <div class="label">Баланс</div>
+            <div class="balance" id="profile-balance">---</div>
+        </div>
+
+        <div class="profile-card">
+            <div class="label">Ваш кошелек USDT (TRC20)</div>
+            <div class="input-group">
+                <input type="text" class="input-field" id="wallet-input" placeholder="T...">
+                <button class="btn btn-primary" id="btn-bind-wallet">Привязать</button>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" id="btn-deposit">💰 Пополнить баланс</button>
+        <button class="btn btn-secondary" id="btn-withdraw">💸 Вывести средства</button>
+
+        <div style="margin-top: 20px;">
+            <div class="label" style="color:#888; font-size:13px;">Реферальная ссылка</div>
+            <div class="ref-link" id="ref-link">Загрузка...</div>
+            <button class="btn btn-secondary" id="btn-copy-ref" style="margin-top:6px;">📋 Копировать</button>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <button class="nav-item active" data-page="page-games">
+            <span class="nav-icon">🎲</span>
+            <span>Игры</span>
+        </button>
+        <button class="nav-item" data-page="page-inventory">
+            <span class="nav-icon">🎒</span>
+            <span>Инвентарь</span>
+        </button>
+        <button class="nav-item" data-page="page-profile">
+            <span class="nav-icon">👤</span>
+            <span>Профиль</span>
+        </button>
+    </div>
+
+    <script>
+        const WEBAPP_URL = window.location.origin;
+        const BOT_USERNAME = "MusorDrop_ROBOT"; // <-- Заменить
+
+        let tgUser = window.Telegram.WebApp.initDataUnsafe?.user || { id: 0, username: "Guest" };
+        let currentBalance = 0;
+
+        const pages = {
+            games: document.getElementById('page-games'),
+            inventory: document.getElementById('page-inventory'),
+            profile: document.getElementById('page-profile')
+        };
+        const navItems = document.querySelectorAll('.nav-item');
+        const toast = document.getElementById('toast');
+
+        function showPage(pageId) {
+            Object.keys(pages).forEach(key => {
+                pages[key].classList.toggle('active', key === pageId);
+            });
+            navItems.forEach(item => {
+                item.classList.toggle('active', item.dataset.page === `page-${pageId}`);
+            });
+            if (pageId === 'profile') {
+                loadProfile();
+            }
+        }
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const pageId = item.dataset.page.replace('page-', '');
+                showPage(pageId);
+            });
+        });
+
+        function showToast(message, type = 'info', duration = 3000) {
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        async function apiRequest(action, data = {}) {
+            try {
+                const payload = { action, user_id: tgUser.id, ...data };
+                const resp = await fetch(WEBAPP_URL + '/webapp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                return await resp.json();
+            } catch (e) {
+                showToast('Ошибка соединения с сервером', 'error');
+                return { status: 'error', message: 'Network error' };
+            }
+        }
+
+        async function loadProfile() {
+            const result = await apiRequest('get_profile');
+            if (result.status === 'ok') {
+                document.getElementById('profile-name').textContent = result.username || 'Unknown';
+                document.getElementById('profile-id').textContent = result.user_id || '---';
+                document.getElementById('profile-balance').textContent = result.balance + ' 🪙';
+                currentBalance = result.balance;
+                if (result.wallet) {
+                    document.getElementById('wallet-input').value = result.wallet;
+                }
+                const refLink = `https://t.me/${BOT_USERNAME}?start=ref${tgUser.id}`;
+                document.getElementById('ref-link').textContent = refLink;
+            } else {
+                showToast('Ошибка загрузки профиля', 'error');
+            }
+        }
+
+        document.getElementById('btn-bind-wallet').addEventListener('click', async () => {
+            const wallet = document.getElementById('wallet-input').value.trim();
+            if (!wallet || wallet.length < 10) {
+                showToast('Введите корректный адрес USDT TRC20', 'error');
+                return;
+            }
+            const result = await apiRequest('update_wallet', { wallet });
+            showToast(result.message || (result.status === 'ok' ? 'Кошелек привязан!' : 'Ошибка'), result.status === 'ok' ? 'success' : 'error');
+        });
+
+        document.getElementById('btn-deposit').addEventListener('click', () => {
+            showToast('Пополнение через крипто-кошелек TRC20.\nАдрес: T9yD14Nj9j7xso4e8LG8k7u4LmE9qX8kZ9', 'info', 5000);
+        });
+
+        document.getElementById('btn-withdraw').addEventListener('click', async () => {
+            const result = await apiRequest('withdraw');
+            showToast(result.message || (result.status === 'ok' ? 'Заявка отправлена!' : 'Ошибка'), result.status === 'ok' ? 'success' : 'error');
+            if (result.status === 'ok') loadProfile();
+        });
+
+        document.getElementById('btn-copy-ref').addEventListener('click', () => {
+            const link = document.getElementById('ref-link').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                showToast('Ссылка скопирована!', 'success');
+            }).catch(() => {
+                const ta = document.createElement('textarea');
+                ta.value = link;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                ta.remove();
+                showToast('Ссылка скопирована!', 'success');
+            });
+        });
+
+        window.Telegram.WebApp.ready();
+        showPage('games');
+
+        setTimeout(() => {
+            if (document.getElementById('profile-name').textContent === 'Загрузка...') {
+                loadProfile();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
