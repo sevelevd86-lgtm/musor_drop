@@ -25,28 +25,17 @@
             flex-direction: column;
             flex: 1;
             padding: 20px;
-            padding-bottom: 10px;
         }
         .page.active {
             display: flex;
         }
-
-        /* ========== ОБЩИЙ СТИЛЬ ========== */
         .page-title {
             font-size: 24px;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             color: #f0b90b;
             text-shadow: 0 0 15px rgba(240, 185, 11, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
-        .page-title span {
-            font-size: 28px;
-        }
-
-        /* ========== МЕНЮ (ЦЕНТР) ========== */
         .menu-hero {
             flex: 1;
             display: flex;
@@ -60,13 +49,11 @@
             font-weight: 900;
             color: #f0b90b;
             text-shadow: 0 0 40px rgba(240, 185, 11, 0.4);
-            letter-spacing: 4px;
         }
         .menu-hero .subtitle {
             color: #aaa;
             font-size: 16px;
             margin-top: 8px;
-            letter-spacing: 2px;
         }
         .menu-hero .balance-big {
             margin-top: 30px;
@@ -74,67 +61,15 @@
             padding: 16px 30px;
             border-radius: 16px;
             border: 1px solid #2a2a3a;
-            font-size: 22px;
+            font-size: 28px;
             color: #f0b90b;
+            font-weight: 700;
         }
-
-        /* ========== ИНВЕНТАРЬ ========== */
-        .inventory-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 10px;
-        }
-        .inventory-item {
-            background: #1a1a24;
-            border: 1px solid #2a2a3a;
-            border-radius: 16px;
-            padding: 16px 8px;
-            text-align: center;
-            transition: all 0.2s;
-        }
-        .inventory-item:active {
-            transform: scale(0.95);
-            border-color: #f0b90b;
-        }
-        .inventory-item .icon {
-            font-size: 32px;
-            margin-bottom: 6px;
-        }
-        .inventory-item .name {
-            font-size: 13px;
-            color: #ccc;
-        }
-        .inventory-item .count {
-            font-size: 12px;
-            color: #888;
-            margin-top: 4px;
-        }
-        .inventory-empty-state {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #666;
-            text-align: center;
-        }
-        .inventory-empty-state .icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
-        .inventory-empty-state h2 {
-            color: #888;
-            font-weight: 400;
-        }
-
-        /* ========== ПРОФИЛЬ ========== */
         .profile-card {
             background: #1a1a24;
             border-radius: 16px;
-            padding: 18px 20px;
-            margin-bottom: 12px;
+            padding: 16px 18px;
+            margin-bottom: 10px;
             border: 1px solid #2a2a3a;
         }
         .profile-card .label {
@@ -150,24 +85,23 @@
             margin-top: 2px;
         }
         .profile-card .balance {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             color: #f0b90b;
         }
-        .profile-card .wallet-row {
+        .wallet-row {
             display: flex;
             gap: 10px;
             margin-top: 6px;
         }
-        .profile-card .wallet-row .input-field {
+        .wallet-row .input-field {
             flex: 1;
         }
-        .profile-card .wallet-row .btn {
+        .wallet-row .btn {
             width: auto;
             padding: 12px 18px;
             margin-top: 0;
         }
-
         .btn {
             display: inline-block;
             padding: 12px 20px;
@@ -198,20 +132,6 @@
         .btn-secondary:active {
             background: #2a2a3a;
         }
-        .btn-success {
-            background: #2ecc71;
-            color: #0a0a0f;
-        }
-        .btn-success:active {
-            background: #27ae60;
-        }
-        .btn-danger {
-            background: #e74c3c;
-            color: #fff;
-        }
-        .btn-danger:active {
-            background: #c0392b;
-        }
         .btn-outline {
             background: transparent;
             border: 1px solid #444;
@@ -220,7 +140,6 @@
         .btn-outline:active {
             background: #1a1a24;
         }
-
         .input-field {
             background: #0a0a0f;
             border: 1px solid #2a2a3a;
@@ -230,15 +149,10 @@
             font-size: 14px;
             width: 100%;
             outline: none;
-            transition: border 0.15s;
         }
         .input-field:focus {
             border-color: #f0b90b;
         }
-        .input-field::placeholder {
-            color: #555;
-        }
-
         .ref-link {
             background: #0a0a0f;
             padding: 10px 14px;
@@ -249,18 +163,46 @@
             margin-top: 6px;
             border: 1px solid #1a1a24;
         }
-
         .profile-actions {
             display: flex;
             flex-direction: column;
             gap: 8px;
             margin-top: 4px;
         }
-        .profile-actions .btn {
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .inventory-item {
+            background: #1a1a24;
+            border: 1px solid #2a2a3a;
+            border-radius: 16px;
+            padding: 16px 8px;
+            text-align: center;
+        }
+        .inventory-item .icon {
+            font-size: 32px;
+        }
+        .inventory-item .name {
+            font-size: 13px;
+            color: #ccc;
+            margin-top: 4px;
+        }
+        .inventory-item .count {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+        }
+        .inventory-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .inventory-actions .btn {
             margin-top: 0;
         }
-
-        /* ========== НИЖНЯЯ НАВИГАЦИЯ ========== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -272,7 +214,6 @@
             justify-content: space-around;
             padding: 6px 0 10px;
             z-index: 100;
-            backdrop-filter: blur(10px);
         }
         .nav-item {
             display: flex;
@@ -280,7 +221,6 @@
             align-items: center;
             color: #666;
             font-size: 11px;
-            transition: color 0.15s;
             cursor: pointer;
             padding: 4px 12px;
             background: none;
@@ -288,6 +228,7 @@
             font-family: inherit;
             flex: 1;
             max-width: 80px;
+            transition: color 0.15s;
         }
         .nav-item .nav-icon {
             font-size: 26px;
@@ -296,11 +237,6 @@
         .nav-item.active {
             color: #f0b90b;
         }
-        .nav-item:active {
-            opacity: 0.6;
-        }
-
-        /* ========== TOAST ========== */
         .toast {
             position: fixed;
             top: 20px;
@@ -329,72 +265,30 @@
         .toast.success {
             border-color: #44ff88;
         }
-
-        /* ========== АДАПТИВ ========== */
-        @media (max-width: 400px) {
-            .inventory-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .menu-hero h1 {
-                font-size: 36px;
-            }
-        }
     </style>
 </head>
 <body>
 
     <div id="toast" class="toast"></div>
 
-    <!-- ===== СТРАНИЦА: ИНВЕНТАРЬ ===== -->
+    <!-- ===== ИНВЕНТАРЬ ===== -->
     <div id="page-inventory" class="page">
-        <div class="page-title"><span>🎒</span> Инвентарь</div>
-
-        <!-- Сетка предметов (заглушка, но выглядит как настоящий инвентарь) -->
+        <div class="page-title">🎒 Инвентарь</div>
         <div class="inventory-grid">
-            <div class="inventory-item">
-                <div class="icon">🃏</div>
-                <div class="name">Карты</div>
-                <div class="count">x0</div>
-            </div>
-            <div class="inventory-item">
-                <div class="icon">🎲</div>
-                <div class="name">Кубики</div>
-                <div class="count">x0</div>
-            </div>
-            <div class="inventory-item">
-                <div class="icon">💰</div>
-                <div class="name">Монеты</div>
-                <div class="count">x0</div>
-            </div>
-            <div class="inventory-item">
-                <div class="icon">🎁</div>
-                <div class="name">Бонусы</div>
-                <div class="count">x0</div>
-            </div>
-            <div class="inventory-item">
-                <div class="icon">⭐</div>
-                <div class="name">Звёзды</div>
-                <div class="count">x0</div>
-            </div>
-            <div class="inventory-item">
-                <div class="icon">🏆</div>
-                <div class="name">Трофеи</div>
-                <div class="count">x0</div>
-            </div>
+            <div class="inventory-item"><div class="icon">🃏</div><div class="name">Карты</div><div class="count">x0</div></div>
+            <div class="inventory-item"><div class="icon">🎲</div><div class="name">Кубики</div><div class="count">x0</div></div>
+            <div class="inventory-item"><div class="icon">💰</div><div class="name">Монеты</div><div class="count">x0</div></div>
+            <div class="inventory-item"><div class="icon">🎁</div><div class="name">Бонусы</div><div class="count">x0</div></div>
+            <div class="inventory-item"><div class="icon">⭐</div><div class="name">Звёзды</div><div class="count">x0</div></div>
+            <div class="inventory-item"><div class="icon">🏆</div><div class="name">Трофеи</div><div class="count">x0</div></div>
         </div>
-
-        <!-- Кнопки действий -->
-        <div style="margin-top: 16px; display: flex; gap: 10px;">
+        <div class="inventory-actions">
             <button class="btn btn-secondary" id="btn-shop">🛒 Магазин</button>
             <button class="btn btn-secondary" id="btn-open">📦 Открыть</button>
         </div>
-
-        <div style="margin-top: 10px; text-align: center; color: #555; font-size: 13px;">
-            Предметы появятся после игры
-        </div>
     </div>
 
-    <!-- ===== СТРАНИЦА: МЕНЮ (ЦЕНТР) ===== -->
+    <!-- ===== МЕНЮ ===== -->
     <div id="page-menu" class="page active">
         <div class="menu-hero">
             <h1>🎰 CASINO</h1>
@@ -405,57 +299,35 @@
         </div>
     </div>
 
-    <!-- ===== СТРАНИЦА: ПРОФИЛЬ ===== -->
+    <!-- ===== ПРОФИЛЬ ===== -->
     <div id="page-profile" class="page">
-        <div class="page-title"><span>👤</span> Профиль</div>
-
+        <div class="page-title">👤 Профиль</div>
+        <div class="profile-card"><div class="label">Имя</div><div class="value" id="profile-name">Загрузка...</div></div>
+        <div class="profile-card"><div class="label">ID</div><div class="value" id="profile-id">---</div></div>
+        <div class="profile-card"><div class="label">Баланс</div><div class="balance" id="profile-balance">---</div></div>
         <div class="profile-card">
-            <div class="label">Имя</div>
-            <div class="value" id="profile-name">Загрузка...</div>
-        </div>
-        <div class="profile-card">
-            <div class="label">ID</div>
-            <div class="value" id="profile-id">---</div>
-        </div>
-        <div class="profile-card">
-            <div class="label">Баланс</div>
-            <div class="balance" id="profile-balance">---</div>
-        </div>
-
-        <div class="profile-card">
-            <div class="label">USDT (TRC20) кошелек</div>
+            <div class="label">USDT (TRC20)</div>
             <div class="wallet-row">
                 <input type="text" class="input-field" id="wallet-input" placeholder="T...">
                 <button class="btn btn-primary" id="btn-bind-wallet">Привязать</button>
             </div>
         </div>
-
         <div class="profile-actions">
-            <button class="btn btn-primary" id="btn-deposit">💰 Пополнить баланс</button>
-            <button class="btn btn-secondary" id="btn-withdraw">💸 Вывести средства</button>
+            <button class="btn btn-primary" id="btn-deposit">💰 Пополнить</button>
+            <button class="btn btn-secondary" id="btn-withdraw">💸 Вывести</button>
         </div>
-
         <div style="margin-top: 16px;">
-            <div class="label" style="color:#888; font-size:12px; text-transform:uppercase;">Реферальная ссылка</div>
+            <div style="color:#888; font-size:12px; text-transform:uppercase;">Реферальная ссылка</div>
             <div class="ref-link" id="ref-link">Загрузка...</div>
             <button class="btn btn-outline" id="btn-copy-ref" style="margin-top:6px;">📋 Копировать</button>
         </div>
     </div>
 
-    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
+    <!-- ===== НИЖНЯЯ ПАНЕЛЬ ===== -->
     <div class="bottom-nav">
-        <button class="nav-item" data-page="page-inventory" id="nav-inventory">
-            <span class="nav-icon">🎒</span>
-            <span>Инвентарь</span>
-        </button>
-        <button class="nav-item active" data-page="page-menu" id="nav-menu">
-            <span class="nav-icon">🏠</span>
-            <span>Меню</span>
-        </button>
-        <button class="nav-item" data-page="page-profile" id="nav-profile">
-            <span class="nav-icon">👤</span>
-            <span>Профиль</span>
-        </button>
+        <button class="nav-item" data-page="page-inventory"><span class="nav-icon">🎒</span><span>Инвентарь</span></button>
+        <button class="nav-item active" data-page="page-menu"><span class="nav-icon">🏠</span><span>Меню</span></button>
+        <button class="nav-item" data-page="page-profile"><span class="nav-icon">👤</span><span>Профиль</span></button>
     </div>
 
     <script>
@@ -524,7 +396,7 @@
 
         // ---------- ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ ----------
         function showPage(pageId) {
-            // Скрываем все
+            // Скрываем все страницы
             Object.keys(pages).forEach(key => {
                 pages[key].classList.remove('active');
             });
@@ -532,7 +404,6 @@
             if (pages[pageId]) {
                 pages[pageId].classList.add('active');
             }
-
             // Обновляем активную кнопку
             navItems.forEach(item => {
                 item.classList.remove('active');
@@ -540,21 +411,19 @@
                     item.classList.add('active');
                 }
             });
-
-            // Если открыли профиль — загружаем данные
+            // Загружаем профиль при открытии
             if (pageId === 'profile') {
                 loadProfile();
             }
-            // Если открыли меню — обновляем баланс
             if (pageId === 'menu') {
                 menuBalance.textContent = '🪙 ' + currentBalance;
             }
         }
 
-        // ---------- ОБРАБОТЧИКИ КНОПОК ----------
+        // ---------- ОБРАБОТЧИКИ КНОПОК НАВИГАЦИИ ----------
         navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const pageId = item.dataset.page;
+            item.addEventListener('click', function(e) {
+                const pageId = this.dataset.page;
                 if (pageId) {
                     showPage(pageId);
                 }
@@ -562,15 +431,15 @@
         });
 
         // ---------- КНОПКИ ИНВЕНТАРЯ ----------
-        document.getElementById('btn-shop').addEventListener('click', () => {
+        document.getElementById('btn-shop').addEventListener('click', function() {
             showToast('🛒 Магазин скоро откроется!', 'info', 2000);
         });
-        document.getElementById('btn-open').addEventListener('click', () => {
+        document.getElementById('btn-open').addEventListener('click', function() {
             showToast('📦 У вас пока нет предметов для открытия', 'info', 2000);
         });
 
         // ---------- КНОПКИ ПРОФИЛЯ ----------
-        document.getElementById('btn-bind-wallet').addEventListener('click', async () => {
+        document.getElementById('btn-bind-wallet').addEventListener('click', async function() {
             const wallet = document.getElementById('wallet-input').value.trim();
             if (!wallet || wallet.length < 10) {
                 showToast('Введите корректный адрес USDT TRC20', 'error');
@@ -580,30 +449,38 @@
             showToast(result.message || (result.status === 'ok' ? '✅ Кошелек привязан!' : 'Ошибка'), result.status === 'ok' ? 'success' : 'error');
         });
 
-        document.getElementById('btn-deposit').addEventListener('click', () => {
+        document.getElementById('btn-deposit').addEventListener('click', function() {
             showToast('💰 Пополнение через крипто-кошелек TRC20.\nАдрес: T9yD14Nj9j7xso4e8LG8k7u4LmE9qX8kZ9', 'info', 5000);
         });
 
-        document.getElementById('btn-withdraw').addEventListener('click', async () => {
+        document.getElementById('btn-withdraw').addEventListener('click', async function() {
             const result = await apiRequest('withdraw');
             showToast(result.message || (result.status === 'ok' ? '✅ Заявка отправлена!' : 'Ошибка'), result.status === 'ok' ? 'success' : 'error');
             if (result.status === 'ok') loadProfile();
         });
 
-        document.getElementById('btn-copy-ref').addEventListener('click', () => {
+        document.getElementById('btn-copy-ref').addEventListener('click', function() {
             const link = document.getElementById('ref-link').textContent;
-            navigator.clipboard.writeText(link).then(() => {
-                showToast('✅ Ссылка скопирована!', 'success');
-            }).catch(() => {
-                const ta = document.createElement('textarea');
-                ta.value = link;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                ta.remove();
-                showToast('✅ Ссылка скопирована!', 'success');
-            });
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showToast('✅ Ссылка скопирована!', 'success');
+                }).catch(() => {
+                    fallbackCopy(link);
+                });
+            } else {
+                fallbackCopy(link);
+            }
         });
+
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            ta.remove();
+            showToast('✅ Ссылка скопирована!', 'success');
+        }
 
         // ---------- ИНИЦИАЛИЗАЦИЯ ----------
         window.Telegram.WebApp.ready();
@@ -612,7 +489,7 @@
         showPage('page-menu');
 
         // Загружаем профиль при старте
-        setTimeout(() => {
+        setTimeout(function() {
             loadProfile();
         }, 500);
     </script>
