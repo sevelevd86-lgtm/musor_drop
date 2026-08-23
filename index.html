@@ -5,50 +5,278 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Casino</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;user-select:none;font-family:'Segoe UI',system-ui,sans-serif}
-        body{background:#0a0a0f;color:#fff;min-height:100vh;display:flex;flex-direction:column;padding-bottom:70px}
-        .page{display:none;flex-direction:column;flex:1;padding:20px}
-        .page.active{display:flex}
-        .page-title{font-size:24px;font-weight:700;margin-bottom:16px;color:#f0b90b}
-        .menu-hero{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-        .menu-hero h1{font-size:48px;font-weight:900;color:#f0b90b;text-shadow:0 0 40px rgba(240,185,11,0.4)}
-        .menu-hero .subtitle{color:#aaa;font-size:16px;margin-top:8px}
-        .menu-hero .balance-big{background:#1a1a24;padding:12px 30px;border-radius:16px;border:1px solid #2a2a3a;font-size:24px;color:#f0b90b;font-weight:700;margin-top:16px}
-        .profile-card{background:#1a1a24;border-radius:16px;padding:16px 18px;margin-bottom:10px;border:1px solid #2a2a3a}
-        .profile-card .label{color:#888;font-size:12px;text-transform:uppercase}
-        .profile-card .value{font-size:18px;font-weight:600;color:#fff;margin-top:2px}
-        .profile-card .balance{font-size:26px;font-weight:700;color:#f0b90b}
-        .wallet-row{display:flex;gap:10px;margin-top:6px}
-        .wallet-row .input-field{flex:1}
-        .wallet-row .btn{width:auto;padding:12px 18px;margin-top:0}
-        .btn{display:inline-block;padding:12px 20px;border-radius:12px;font-weight:600;font-size:15px;text-align:center;border:none;cursor:pointer;transition:all .15s ease;width:100%;margin-top:6px;background:#2a2a3a;color:#fff}
-        .btn-primary{background:#f0b90b;color:#0a0a0f}
-        .btn-primary:active{background:#d4a40a}
-        .btn-secondary{background:#1a1a24;border:1px solid #f0b90b;color:#f0b90b}
-        .btn-secondary:active{background:#2a2a3a}
-        .btn-outline{background:transparent;border:1px solid #444;color:#aaa}
-        .btn-outline:active{background:#1a1a24}
-        .input-field{background:#0a0a0f;border:1px solid #2a2a3a;border-radius:12px;padding:12px 14px;color:#fff;font-size:14px;width:100%;outline:none}
-        .input-field:focus{border-color:#f0b90b}
-        .ref-link{background:#0a0a0f;padding:10px 14px;border-radius:10px;font-size:13px;color:#aaa;word-break:break-all;margin-top:6px;border:1px solid #1a1a24}
-        .profile-actions{display:flex;flex-direction:column;gap:8px;margin-top:4px}
-        .inventory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px}
-        .inventory-item{background:#1a1a24;border:1px solid #2a2a3a;border-radius:16px;padding:16px 8px;text-align:center}
-        .inventory-item .icon{font-size:32px}
-        .inventory-item .name{font-size:13px;color:#ccc;margin-top:4px}
-        .inventory-item .count{font-size:12px;color:#888;margin-top:2px}
-        .inventory-actions{display:flex;gap:10px;margin-top:16px}
-        .inventory-actions .btn{margin-top:0}
-        .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#0d0d14;border-top:1px solid #1a1a24;display:flex;justify-content:space-around;padding:6px 0 10px;z-index:100}
-        .nav-item{display:flex;flex-direction:column;align-items:center;color:#666;font-size:11px;cursor:pointer;padding:4px 12px;background:none;border:none;font-family:inherit;flex:1;max-width:80px;transition:color .15s ease}
-        .nav-item .nav-icon{font-size:26px;margin-bottom:2px}
-        .nav-item.active{color:#f0b90b}
-        .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#1a1a24;border:1px solid #f0b90b;padding:12px 20px;border-radius:12px;color:#fff;font-weight:500;z-index:200;opacity:0;transition:opacity .3s ease;pointer-events:none;max-width:90%;text-align:center;font-size:14px}
-        .toast.show{opacity:1}
-        .toast.error{border-color:#ff4444}
-        .toast.success{border-color:#44ff88}
-        .top-balance{background:#0d0d14;padding:10px 16px;text-align:right;font-size:16px;color:#f0b90b;border-bottom:1px solid #1a1a24;font-weight:600}
-        @media(max-width:400px){.inventory-grid{grid-template-columns:repeat(2,1fr)}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        body {
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 70px;
+        }
+        .page {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            padding: 20px;
+        }
+        .page.active {
+            display: flex;
+        }
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #f0b90b;
+        }
+        .menu-hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .menu-hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            color: #f0b90b;
+            text-shadow: 0 0 40px rgba(240, 185, 11, 0.4);
+        }
+        .menu-hero .subtitle {
+            color: #aaa;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+        .menu-hero .balance-big {
+            background: #1a1a24;
+            padding: 12px 30px;
+            border-radius: 16px;
+            border: 1px solid #2a2a3a;
+            font-size: 24px;
+            color: #f0b90b;
+            font-weight: 700;
+            margin-top: 16px;
+        }
+        .profile-card {
+            background: #1a1a24;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 10px;
+            border: 1px solid #2a2a3a;
+        }
+        .profile-card .label {
+            color: #888;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        .profile-card .value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            margin-top: 2px;
+        }
+        .profile-card .balance {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f0b90b;
+        }
+        .wallet-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .wallet-row .input-field {
+            flex: 1;
+        }
+        .wallet-row .btn {
+            width: auto;
+            padding: 12px 18px;
+            margin-top: 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: all .15s ease;
+            width: 100%;
+            margin-top: 6px;
+            background: #2a2a3a;
+            color: #fff;
+        }
+        .btn-primary {
+            background: #f0b90b;
+            color: #0a0a0f;
+        }
+        .btn-primary:active {
+            background: #d4a40a;
+        }
+        .btn-secondary {
+            background: #1a1a24;
+            border: 1px solid #f0b90b;
+            color: #f0b90b;
+        }
+        .btn-secondary:active {
+            background: #2a2a3a;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #444;
+            color: #aaa;
+        }
+        .btn-outline:active {
+            background: #1a1a24;
+        }
+        .input-field {
+            background: #0a0a0f;
+            border: 1px solid #2a2a3a;
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: #fff;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: #f0b90b;
+        }
+        .ref-link {
+            background: #0a0a0f;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #aaa;
+            word-break: break-all;
+            margin-top: 6px;
+            border: 1px solid #1a1a24;
+        }
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .inventory-item {
+            background: #1a1a24;
+            border: 1px solid #2a2a3a;
+            border-radius: 16px;
+            padding: 16px 8px;
+            text-align: center;
+        }
+        .inventory-item .icon {
+            font-size: 32px;
+        }
+        .inventory-item .name {
+            font-size: 13px;
+            color: #ccc;
+            margin-top: 4px;
+        }
+        .inventory-item .count {
+            font-size: 12px;
+            color: #888;
+            margin-top: 2px;
+        }
+        .inventory-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .inventory-actions .btn {
+            margin-top: 0;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #0d0d14;
+            border-top: 1px solid #1a1a24;
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0 10px;
+            z-index: 100;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #666;
+            font-size: 11px;
+            cursor: pointer;
+            padding: 4px 12px;
+            background: none;
+            border: none;
+            font-family: inherit;
+            flex: 1;
+            max-width: 80px;
+            transition: color .15s ease;
+        }
+        .nav-item .nav-icon {
+            font-size: 26px;
+            margin-bottom: 2px;
+        }
+        .nav-item.active {
+            color: #f0b90b;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a1a24;
+            border: 1px solid #f0b90b;
+            padding: 12px 20px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 500;
+            z-index: 200;
+            opacity: 0;
+            transition: opacity .3s ease;
+            pointer-events: none;
+            max-width: 90%;
+            text-align: center;
+            font-size: 14px;
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        .toast.error {
+            border-color: #ff4444;
+        }
+        .toast.success {
+            border-color: #44ff88;
+        }
+        .top-balance {
+            background: #0d0d14;
+            padding: 10px 16px;
+            text-align: right;
+            font-size: 16px;
+            color: #f0b90b;
+            border-bottom: 1px solid #1a1a24;
+            font-weight: 600;
+        }
+        @media(max-width:400px) {
+            .inventory-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
@@ -117,6 +345,8 @@
     </div>
 
     <script>
+        console.log('Script started');
+
         // ---------- НАСТРОЙКИ ----------
         const WEBAPP_URL = "https://sevelevd86-lgtm.github.io/musor_drop/";
         const BOT_USERNAME = "MusorDrop_ROBOT";
@@ -151,23 +381,27 @@
                 });
                 return await resp.json();
             } catch (e) {
+                console.error('API error:', e);
                 showToast('Ошибка соединения с сервером', 'error');
                 return { status: 'error', message: 'Network error' };
             }
         }
 
-        // ---------- ОБНОВЛЕНИЕ БАЛАНСА (ВСЕГДА) ----------
+        // ---------- ОБНОВЛЕНИЕ БАЛАНСА ----------
         function updateBalanceUI(balance) {
             currentBalance = balance;
             topBalance.textContent = '🪙 ' + currentBalance;
             menuBalance.textContent = '🪙 ' + currentBalance;
-            document.getElementById('profile-balance').textContent = currentBalance + ' 🪙';
+            const profileBal = document.getElementById('profile-balance');
+            if (profileBal) profileBal.textContent = currentBalance + ' 🪙';
         }
 
         // ---------- ЗАГРУЗКА ПРОФИЛЯ ----------
         async function loadProfile() {
+            console.log('Loading profile...');
             const result = await apiRequest('get_profile');
             if (result.status === 'ok') {
+                console.log('Profile loaded:', result);
                 document.getElementById('profile-name').textContent = result.username || 'Unknown';
                 document.getElementById('profile-id').textContent = result.user_id || '---';
                 updateBalanceUI(result.balance);
@@ -177,34 +411,33 @@
                 const refLink = `https://t.me/${BOT_USERNAME}?start=ref${tgUser.id}`;
                 document.getElementById('ref-link').textContent = refLink;
             } else {
+                console.error('Profile load error:', result);
                 showToast('Ошибка загрузки профиля', 'error');
             }
         }
 
         // ---------- ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ ----------
         function showPage(pageId) {
-            // Скрываем все страницы
+            console.log('Switching to:', pageId);
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            // Показываем нужную
             const target = document.getElementById(pageId);
             if (target) target.classList.add('active');
-            // Обновляем активную кнопку
             document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
             const activeBtn = document.querySelector(`.nav-item[data-page="${pageId}"]`);
             if (activeBtn) activeBtn.classList.add('active');
-            // Если открыли профиль — загружаем данные
             if (pageId === 'profile') {
                 loadProfile();
             }
-            // Если открыли меню — обновляем баланс
             if (pageId === 'menu') {
                 menuBalance.textContent = '🪙 ' + currentBalance;
             }
         }
 
-        // ---------- ОБРАБОТЧИКИ КНОПОК НАВИГАЦИИ ----------
+        // ---------- ОБРАБОТЧИКИ КНОПОК ----------
+        console.log('Adding navigation listeners...');
         document.querySelectorAll('.nav-item').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(e) {
+                console.log('Nav clicked:', this.dataset.page);
                 const pageId = this.dataset.page;
                 if (pageId) {
                     showPage(pageId);
@@ -212,7 +445,6 @@
             });
         });
 
-        // ---------- КНОПКИ ИНВЕНТАРЯ ----------
         document.getElementById('btn-shop')?.addEventListener('click', function() {
             showToast('🛒 Магазин скоро откроется!', 'info', 2000);
         });
@@ -220,7 +452,6 @@
             showToast('📦 У вас пока нет предметов для открытия', 'info', 2000);
         });
 
-        // ---------- КНОПКИ ПРОФИЛЯ ----------
         document.getElementById('btn-bind-wallet')?.addEventListener('click', async function() {
             const wallet = document.getElementById('wallet-input').value.trim();
             if (!wallet || wallet.length < 10) {
@@ -246,9 +477,7 @@
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(link).then(() => {
                     showToast('✅ Ссылка скопирована!', 'success');
-                }).catch(() => {
-                    fallbackCopy(link);
-                });
+                }).catch(() => fallbackCopy(link));
             } else {
                 fallbackCopy(link);
             }
@@ -265,6 +494,7 @@
         }
 
         // ---------- ИНИЦИАЛИЗАЦИЯ ----------
+        console.log('Initializing...');
         window.Telegram.WebApp.ready();
 
         // Показываем меню по умолчанию
@@ -274,6 +504,8 @@
         setTimeout(function() {
             loadProfile();
         }, 500);
+
+        console.log('Script finished');
     </script>
 </body>
 </html>
