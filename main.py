@@ -3,16 +3,14 @@ import sqlite3
 import json
 import logging
 import asyncio
-from datetime import datetime
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from aiogram.filters import Command
 from aiohttp import web
-import aiohttp
 
 # ---------- НАСТРОЙКИ (из переменных окружения) ----------
 BOT_TOKEN = os.getenv("BOT_TOKEN", "8610780281:AAFZxc5KSd4wEtUNZ4U47Poltu0jMVR-mbg")
-WEBAPP_URL = os.getenv("WEBAPP_URL", "https://musor_drop.bothost.ru")  # <-- Заменить на bothost URL
+WEBAPP_URL = os.getenv("WEBAPP_URL", "https://musor_drop.bothost.ru")  # <-- ТВОЯ ССЫЛКА
 WEBAPP_PORT = int(os.getenv("PORT", 8080))
 
 # ---------- ЛОГГИНГ ----------
@@ -154,16 +152,25 @@ async def handle_webapp(request):
         logger.error(f"Ошибка: {e}")
         return web.json_response({"status": "error", "message": str(e)})
 
+# ---------- ОБРАБОТЧИК КОРНЯ (ОТДАЁТ index.html) ----------
+async def handle_root(request):
+    try:
+        return web.FileResponse("index.html")
+    except FileNotFoundError:
+        return web.Response(text="index.html not found", status=404)
+
+# ---------- ЗАПУСК ВЕБ-СЕРВЕРА ----------
 async def start_webapp():
     app = web.Application()
-    app.router.add_post("/webapp", handle_webapp)
+    app.router.add_get("/", handle_root)        # <-- ОТДАЁТ index.html
+    app.router.add_post("/webapp", handle_webapp)  # <-- API
     runner = web.AppRunner(app)
     await runner.setup()
     site = web.TCPSite(runner, "0.0.0.0", WEBAPP_PORT)
     await site.start()
     logger.info(f"WebApp сервер запущен на порту {WEBAPP_PORT}")
 
-# ---------- ЗАПУСК ----------
+# ---------- ОСНОВНОЙ ЗАПУСК ----------
 async def main():
     init_db()
     await start_webapp()
