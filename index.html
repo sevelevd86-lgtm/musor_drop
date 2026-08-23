@@ -25,20 +25,28 @@
             flex-direction: column;
             flex: 1;
             padding: 20px;
+            padding-bottom: 10px;
         }
         .page.active {
             display: flex;
         }
 
+        /* ========== ОБЩИЙ СТИЛЬ ========== */
         .page-title {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
             margin-bottom: 20px;
             color: #f0b90b;
-            text-shadow: 0 0 10px rgba(240, 185, 11, 0.3);
+            text-shadow: 0 0 15px rgba(240, 185, 11, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .page-title span {
+            font-size: 28px;
         }
 
-        /* Меню (центр) */
+        /* ========== МЕНЮ (ЦЕНТР) ========== */
         .menu-hero {
             flex: 1;
             display: flex;
@@ -48,12 +56,11 @@
             text-align: center;
         }
         .menu-hero h1 {
-            font-size: 42px;
+            font-size: 48px;
             font-weight: 900;
             color: #f0b90b;
-            text-shadow: 0 0 30px rgba(240, 185, 11, 0.5);
+            text-shadow: 0 0 40px rgba(240, 185, 11, 0.4);
             letter-spacing: 4px;
-            margin-bottom: 10px;
         }
         .menu-hero .subtitle {
             color: #aaa;
@@ -61,29 +68,104 @@
             margin-top: 8px;
             letter-spacing: 2px;
         }
+        .menu-hero .balance-big {
+            margin-top: 30px;
+            background: #1a1a24;
+            padding: 16px 30px;
+            border-radius: 16px;
+            border: 1px solid #2a2a3a;
+            font-size: 22px;
+            color: #f0b90b;
+        }
 
-        /* Профиль */
+        /* ========== ИНВЕНТАРЬ ========== */
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .inventory-item {
+            background: #1a1a24;
+            border: 1px solid #2a2a3a;
+            border-radius: 16px;
+            padding: 16px 8px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .inventory-item:active {
+            transform: scale(0.95);
+            border-color: #f0b90b;
+        }
+        .inventory-item .icon {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+        .inventory-item .name {
+            font-size: 13px;
+            color: #ccc;
+        }
+        .inventory-item .count {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+        .inventory-empty-state {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            text-align: center;
+        }
+        .inventory-empty-state .icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+        .inventory-empty-state h2 {
+            color: #888;
+            font-weight: 400;
+        }
+
+        /* ========== ПРОФИЛЬ ========== */
         .profile-card {
             background: #1a1a24;
             border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 16px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
             border: 1px solid #2a2a3a;
         }
         .profile-card .label {
             color: #888;
-            font-size: 13px;
-            margin-bottom: 2px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         .profile-card .value {
             font-size: 18px;
             font-weight: 600;
             color: #fff;
+            margin-top: 2px;
         }
         .profile-card .balance {
             font-size: 28px;
             font-weight: 700;
             color: #f0b90b;
+        }
+        .profile-card .wallet-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .profile-card .wallet-row .input-field {
+            flex: 1;
+        }
+        .profile-card .wallet-row .btn {
+            width: auto;
+            padding: 12px 18px;
+            margin-top: 0;
         }
 
         .btn {
@@ -97,7 +179,7 @@
             cursor: pointer;
             transition: all 0.15s ease;
             width: 100%;
-            margin-top: 8px;
+            margin-top: 6px;
             background: #2a2a3a;
             color: #fff;
         }
@@ -116,14 +198,36 @@
         .btn-secondary:active {
             background: #2a2a3a;
         }
+        .btn-success {
+            background: #2ecc71;
+            color: #0a0a0f;
+        }
+        .btn-success:active {
+            background: #27ae60;
+        }
+        .btn-danger {
+            background: #e74c3c;
+            color: #fff;
+        }
+        .btn-danger:active {
+            background: #c0392b;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #444;
+            color: #aaa;
+        }
+        .btn-outline:active {
+            background: #1a1a24;
+        }
 
         .input-field {
-            background: #1a1a24;
+            background: #0a0a0f;
             border: 1px solid #2a2a3a;
             border-radius: 12px;
-            padding: 14px 16px;
+            padding: 12px 14px;
             color: #fff;
-            font-size: 15px;
+            font-size: 14px;
             width: 100%;
             outline: none;
             transition: border 0.15s;
@@ -131,35 +235,32 @@
         .input-field:focus {
             border-color: #f0b90b;
         }
-        .input-group {
+        .input-field::placeholder {
+            color: #555;
+        }
+
+        .ref-link {
+            background: #0a0a0f;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #aaa;
+            word-break: break-all;
+            margin-top: 6px;
+            border: 1px solid #1a1a24;
+        }
+
+        .profile-actions {
             display: flex;
-            gap: 10px;
-            margin-top: 8px;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 4px;
         }
-        .input-group .input-field {
-            flex: 1;
-        }
-        .input-group .btn {
-            width: auto;
-            padding: 12px 20px;
+        .profile-actions .btn {
             margin-top: 0;
         }
 
-        .inventory-empty {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #666;
-        }
-        .inventory-empty .icon {
-            font-size: 56px;
-            margin-bottom: 16px;
-        }
-
-        /* НИЖНЯЯ НАВИГАЦИЯ */
+        /* ========== НИЖНЯЯ НАВИГАЦИЯ ========== */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -169,7 +270,7 @@
             border-top: 1px solid #1a1a24;
             display: flex;
             justify-content: space-around;
-            padding: 8px 0 12px;
+            padding: 6px 0 10px;
             z-index: 100;
             backdrop-filter: blur(10px);
         }
@@ -186,9 +287,10 @@
             border: none;
             font-family: inherit;
             flex: 1;
+            max-width: 80px;
         }
         .nav-item .nav-icon {
-            font-size: 24px;
+            font-size: 26px;
             margin-bottom: 2px;
         }
         .nav-item.active {
@@ -198,6 +300,7 @@
             opacity: 0.6;
         }
 
+        /* ========== TOAST ========== */
         .toast {
             position: fixed;
             top: 20px;
@@ -205,7 +308,7 @@
             transform: translateX(-50%);
             background: #1a1a24;
             border: 1px solid #f0b90b;
-            padding: 14px 24px;
+            padding: 12px 20px;
             border-radius: 12px;
             color: #fff;
             font-weight: 500;
@@ -215,6 +318,7 @@
             pointer-events: none;
             max-width: 90%;
             text-align: center;
+            font-size: 14px;
         }
         .toast.show {
             opacity: 1;
@@ -226,14 +330,14 @@
             border-color: #44ff88;
         }
 
-        .ref-link {
-            background: #1a1a24;
-            padding: 10px 14px;
-            border-radius: 10px;
-            font-size: 13px;
-            color: #aaa;
-            word-break: break-all;
-            margin-top: 8px;
+        /* ========== АДАПТИВ ========== */
+        @media (max-width: 400px) {
+            .inventory-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .menu-hero h1 {
+                font-size: 36px;
+            }
         }
     </style>
 </head>
@@ -241,28 +345,69 @@
 
     <div id="toast" class="toast"></div>
 
-    <!-- СТРАНИЦА: ИНВЕНТАРЬ (левая) -->
+    <!-- ===== СТРАНИЦА: ИНВЕНТАРЬ ===== -->
     <div id="page-inventory" class="page">
-        <div class="inventory-empty">
-            <div class="icon">🎒</div>
-            <h2 style="color: #888; margin-bottom: 8px;">Инвентарь пуст</h2>
-            <p style="color: #555; font-size: 14px;">Приходите за скинами позже</p>
+        <div class="page-title"><span>🎒</span> Инвентарь</div>
+
+        <!-- Сетка предметов (заглушка, но выглядит как настоящий инвентарь) -->
+        <div class="inventory-grid">
+            <div class="inventory-item">
+                <div class="icon">🃏</div>
+                <div class="name">Карты</div>
+                <div class="count">x0</div>
+            </div>
+            <div class="inventory-item">
+                <div class="icon">🎲</div>
+                <div class="name">Кубики</div>
+                <div class="count">x0</div>
+            </div>
+            <div class="inventory-item">
+                <div class="icon">💰</div>
+                <div class="name">Монеты</div>
+                <div class="count">x0</div>
+            </div>
+            <div class="inventory-item">
+                <div class="icon">🎁</div>
+                <div class="name">Бонусы</div>
+                <div class="count">x0</div>
+            </div>
+            <div class="inventory-item">
+                <div class="icon">⭐</div>
+                <div class="name">Звёзды</div>
+                <div class="count">x0</div>
+            </div>
+            <div class="inventory-item">
+                <div class="icon">🏆</div>
+                <div class="name">Трофеи</div>
+                <div class="count">x0</div>
+            </div>
+        </div>
+
+        <!-- Кнопки действий -->
+        <div style="margin-top: 16px; display: flex; gap: 10px;">
+            <button class="btn btn-secondary" id="btn-shop">🛒 Магазин</button>
+            <button class="btn btn-secondary" id="btn-open">📦 Открыть</button>
+        </div>
+
+        <div style="margin-top: 10px; text-align: center; color: #555; font-size: 13px;">
+            Предметы появятся после игры
         </div>
     </div>
 
-    <!-- СТРАНИЦА: МЕНЮ (центр) -->
+    <!-- ===== СТРАНИЦА: МЕНЮ (ЦЕНТР) ===== -->
     <div id="page-menu" class="page active">
         <div class="menu-hero">
             <h1>🎰 CASINO</h1>
-            <div style="font-size: 64px; margin: 20px 0;">🔥</div>
+            <div style="font-size: 56px; margin: 16px 0;">🔥</div>
             <div class="subtitle">Добро пожаловать в казино</div>
-            <div style="margin-top: 10px; color: #555; font-size: 13px;">Выберите раздел внизу</div>
+            <div class="balance-big" id="menu-balance">🪙 0</div>
+            <div style="margin-top: 20px; color: #555; font-size: 13px;">Выберите раздел внизу</div>
         </div>
     </div>
 
-    <!-- СТРАНИЦА: ПРОФИЛЬ (правая) -->
+    <!-- ===== СТРАНИЦА: ПРОФИЛЬ ===== -->
     <div id="page-profile" class="page">
-        <div class="page-title">👤 Профиль</div>
+        <div class="page-title"><span>👤</span> Профиль</div>
 
         <div class="profile-card">
             <div class="label">Имя</div>
@@ -278,24 +423,26 @@
         </div>
 
         <div class="profile-card">
-            <div class="label">Ваш кошелек USDT (TRC20)</div>
-            <div class="input-group">
+            <div class="label">USDT (TRC20) кошелек</div>
+            <div class="wallet-row">
                 <input type="text" class="input-field" id="wallet-input" placeholder="T...">
                 <button class="btn btn-primary" id="btn-bind-wallet">Привязать</button>
             </div>
         </div>
 
-        <button class="btn btn-primary" id="btn-deposit">💰 Пополнить баланс</button>
-        <button class="btn btn-secondary" id="btn-withdraw">💸 Вывести средства</button>
+        <div class="profile-actions">
+            <button class="btn btn-primary" id="btn-deposit">💰 Пополнить баланс</button>
+            <button class="btn btn-secondary" id="btn-withdraw">💸 Вывести средства</button>
+        </div>
 
-        <div style="margin-top: 20px;">
-            <div class="label" style="color:#888; font-size:13px;">Реферальная ссылка</div>
+        <div style="margin-top: 16px;">
+            <div class="label" style="color:#888; font-size:12px; text-transform:uppercase;">Реферальная ссылка</div>
             <div class="ref-link" id="ref-link">Загрузка...</div>
-            <button class="btn btn-secondary" id="btn-copy-ref" style="margin-top:6px;">📋 Копировать</button>
+            <button class="btn btn-outline" id="btn-copy-ref" style="margin-top:6px;">📋 Копировать</button>
         </div>
     </div>
 
-    <!-- НИЖНЯЯ ПАНЕЛЬ -->
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ ===== -->
     <div class="bottom-nav">
         <button class="nav-item" data-page="page-inventory" id="nav-inventory">
             <span class="nav-icon">🎒</span>
@@ -327,6 +474,7 @@
         };
         const navItems = document.querySelectorAll('.nav-item');
         const toast = document.getElementById('toast');
+        const menuBalance = document.getElementById('menu-balance');
 
         // ---------- ТОСТ ----------
         function showToast(message, type = 'info', duration = 3000) {
@@ -363,6 +511,7 @@
                 document.getElementById('profile-id').textContent = result.user_id || '---';
                 document.getElementById('profile-balance').textContent = result.balance + ' 🪙';
                 currentBalance = result.balance;
+                menuBalance.textContent = '🪙 ' + currentBalance;
                 if (result.wallet) {
                     document.getElementById('wallet-input').value = result.wallet;
                 }
@@ -375,7 +524,7 @@
 
         // ---------- ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ ----------
         function showPage(pageId) {
-            // Скрываем все страницы
+            // Скрываем все
             Object.keys(pages).forEach(key => {
                 pages[key].classList.remove('active');
             });
@@ -384,7 +533,7 @@
                 pages[pageId].classList.add('active');
             }
 
-            // Обновляем активную кнопку в навигации
+            // Обновляем активную кнопку
             navItems.forEach(item => {
                 item.classList.remove('active');
                 if (item.dataset.page === pageId) {
@@ -395,6 +544,10 @@
             // Если открыли профиль — загружаем данные
             if (pageId === 'profile') {
                 loadProfile();
+            }
+            // Если открыли меню — обновляем баланс
+            if (pageId === 'menu') {
+                menuBalance.textContent = '🪙 ' + currentBalance;
             }
         }
 
@@ -408,7 +561,15 @@
             });
         });
 
-        // ---------- ПРОЧИЕ КНОПКИ ----------
+        // ---------- КНОПКИ ИНВЕНТАРЯ ----------
+        document.getElementById('btn-shop').addEventListener('click', () => {
+            showToast('🛒 Магазин скоро откроется!', 'info', 2000);
+        });
+        document.getElementById('btn-open').addEventListener('click', () => {
+            showToast('📦 У вас пока нет предметов для открытия', 'info', 2000);
+        });
+
+        // ---------- КНОПКИ ПРОФИЛЯ ----------
         document.getElementById('btn-bind-wallet').addEventListener('click', async () => {
             const wallet = document.getElementById('wallet-input').value.trim();
             if (!wallet || wallet.length < 10) {
@@ -416,23 +577,23 @@
                 return;
             }
             const result = await apiRequest('update_wallet', { wallet });
-            showToast(result.message || (result.status === 'ok' ? 'Кошелек привязан!' : 'Ошибка'), result.status === 'ok' ? 'success' : 'error');
+            showToast(result.message || (result.status === 'ok' ? '✅ Кошелек привязан!' : 'Ошибка'), result.status === 'ok' ? 'success' : 'error');
         });
 
         document.getElementById('btn-deposit').addEventListener('click', () => {
-            showToast('Пополнение через крипто-кошелек TRC20.\nАдрес: T9yD14Nj9j7xso4e8LG8k7u4LmE9qX8kZ9', 'info', 5000);
+            showToast('💰 Пополнение через крипто-кошелек TRC20.\nАдрес: T9yD14Nj9j7xso4e8LG8k7u4LmE9qX8kZ9', 'info', 5000);
         });
 
         document.getElementById('btn-withdraw').addEventListener('click', async () => {
             const result = await apiRequest('withdraw');
-            showToast(result.message || (result.status === 'ok' ? 'Заявка отправлена!' : 'Ошибка'), result.status === 'ok' ? 'success' : 'error');
+            showToast(result.message || (result.status === 'ok' ? '✅ Заявка отправлена!' : 'Ошибка'), result.status === 'ok' ? 'success' : 'error');
             if (result.status === 'ok') loadProfile();
         });
 
         document.getElementById('btn-copy-ref').addEventListener('click', () => {
             const link = document.getElementById('ref-link').textContent;
             navigator.clipboard.writeText(link).then(() => {
-                showToast('Ссылка скопирована!', 'success');
+                showToast('✅ Ссылка скопирована!', 'success');
             }).catch(() => {
                 const ta = document.createElement('textarea');
                 ta.value = link;
@@ -440,7 +601,7 @@
                 ta.select();
                 document.execCommand('copy');
                 ta.remove();
-                showToast('Ссылка скопирована!', 'success');
+                showToast('✅ Ссылка скопирована!', 'success');
             });
         });
 
@@ -450,14 +611,7 @@
         // Показываем меню по умолчанию
         showPage('page-menu');
 
-        // Загружаем профиль при старте (для фона)
-        setTimeout(() => {
-            if (document.getElementById('profile-name').textContent === 'Загрузка...') {
-                loadProfile();
-            }
-        }, 1000);
-
-        // Дополнительно загружаем профиль при первом переходе
+        // Загружаем профиль при старте
         setTimeout(() => {
             loadProfile();
         }, 500);
