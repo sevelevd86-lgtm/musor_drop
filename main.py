@@ -10,7 +10,7 @@ from aiohttp import web
 
 # ---------- НАСТРОЙКИ (из переменных окружения) ----------
 BOT_TOKEN = os.getenv("BOT_TOKEN", "8610780281:AAFZxc5KSd4wEtUNZ4U47Poltu0jMVR-mbg")
-WEBAPP_URL = os.getenv("WEBAPP_URL", "https://sevelevd86-lgtm.github.io/musor_drop/")  # <-- ТВОЯ ССЫЛКА
+WEBAPP_URL = os.getenv("WEBAPP_URL", "https://sevelevd86-lgtm.github.io/musor_drop/")
 WEBAPP_PORT = int(os.getenv("PORT", 8080))
 
 # ---------- ЛОГГИНГ ----------
@@ -135,6 +135,13 @@ async def handle_webapp(request):
                 return web.json_response({"status": "ok", "message": "Кошелек привязан!"})
             return web.json_response({"status": "error", "message": "Неверный адрес"})
 
+        elif action == "update_balance":
+            new_balance = data.get("balance")
+            if new_balance is not None:
+                update_balance(user_id, new_balance)
+                return web.json_response({"status": "ok", "balance": new_balance})
+            return web.json_response({"status": "error", "message": "Invalid balance"})
+
         elif action == "withdraw":
             user = get_user(user_id)
             if not user:
@@ -152,7 +159,7 @@ async def handle_webapp(request):
         logger.error(f"Ошибка: {e}")
         return web.json_response({"status": "error", "message": str(e)})
 
-# ---------- ОБРАБОТЧИК КОРНЯ (ОТДАЁТ index.html) ----------
+# ---------- ОБРАБОТЧИК КОРНЯ ----------
 async def handle_root(request):
     try:
         return web.FileResponse("index.html")
@@ -162,8 +169,8 @@ async def handle_root(request):
 # ---------- ЗАПУСК ВЕБ-СЕРВЕРА ----------
 async def start_webapp():
     app = web.Application()
-    app.router.add_get("/", handle_root)        # <-- ОТДАЁТ index.html
-    app.router.add_post("/webapp", handle_webapp)  # <-- API
+    app.router.add_get("/", handle_root)
+    app.router.add_post("/webapp", handle_webapp)
     runner = web.AppRunner(app)
     await runner.setup()
     site = web.TCPSite(runner, "0.0.0.0", WEBAPP_PORT)
