@@ -339,9 +339,15 @@
 
     <!-- НИЖНЯЯ НАВИГАЦИЯ -->
     <div class="bottom-nav">
-        <button class="nav-item" data-page="page-inventory"><span class="nav-icon">🎒</span><span>Инвентарь</span></button>
-        <button class="nav-item active" data-page="page-menu"><span class="nav-icon">🏠</span><span>Меню</span></button>
-        <button class="nav-item" data-page="page-profile"><span class="nav-icon">👤</span><span>Профиль</span></button>
+        <button class="nav-item" data-page="page-inventory" onclick="switchPage('page-inventory')">
+            <span class="nav-icon">🎒</span><span>Инвентарь</span>
+        </button>
+        <button class="nav-item active" data-page="page-menu" onclick="switchPage('page-menu')">
+            <span class="nav-icon">🏠</span><span>Меню</span>
+        </button>
+        <button class="nav-item" data-page="page-profile" onclick="switchPage('page-profile')">
+            <span class="nav-icon">👤</span><span>Профиль</span>
+        </button>
     </div>
 
     <script>
@@ -354,9 +360,26 @@
         let tgUser = window.Telegram.WebApp.initDataUnsafe?.user || { id: 0, username: "Guest" };
         let currentBalance = 0;
 
-        // ---------- ЭЛЕМЕНТЫ ----------
-        const topBalance = document.getElementById('top-balance');
-        const menuBalance = document.getElementById('menu-balance');
+        // ---------- ГЛОБАЛЬНАЯ ФУНКЦИЯ ДЛЯ onCLICK ----------
+        window.switchPage = function(pageId) {
+            console.log('switchPage called:', pageId);
+            // Скрываем все страницы
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            // Показываем нужную
+            const target = document.getElementById(pageId);
+            if (target) target.classList.add('active');
+            // Обновляем активную кнопку
+            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.querySelector(`.nav-item[data-page="${pageId}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+            // Если открыли профиль — загружаем данные
+            if (pageId === 'page-profile') {
+                loadProfile();
+            }
+            if (pageId === 'page-menu') {
+                document.getElementById('menu-balance').textContent = '🪙 ' + currentBalance;
+            }
+        };
 
         // ---------- ТОСТ ----------
         function showToast(message, type = 'info', duration = 3000) {
@@ -390,8 +413,8 @@
         // ---------- ОБНОВЛЕНИЕ БАЛАНСА ----------
         function updateBalanceUI(balance) {
             currentBalance = balance;
-            topBalance.textContent = '🪙 ' + currentBalance;
-            menuBalance.textContent = '🪙 ' + currentBalance;
+            document.getElementById('top-balance').textContent = '🪙 ' + currentBalance;
+            document.getElementById('menu-balance').textContent = '🪙 ' + currentBalance;
             const profileBal = document.getElementById('profile-balance');
             if (profileBal) profileBal.textContent = currentBalance + ' 🪙';
         }
@@ -416,35 +439,7 @@
             }
         }
 
-        // ---------- ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ ----------
-        function showPage(pageId) {
-            console.log('Switching to:', pageId);
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById(pageId);
-            if (target) target.classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-            const activeBtn = document.querySelector(`.nav-item[data-page="${pageId}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
-            if (pageId === 'profile') {
-                loadProfile();
-            }
-            if (pageId === 'menu') {
-                menuBalance.textContent = '🪙 ' + currentBalance;
-            }
-        }
-
-        // ---------- ОБРАБОТЧИКИ КНОПОК ----------
-        console.log('Adding navigation listeners...');
-        document.querySelectorAll('.nav-item').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                console.log('Nav clicked:', this.dataset.page);
-                const pageId = this.dataset.page;
-                if (pageId) {
-                    showPage(pageId);
-                }
-            });
-        });
-
+        // ---------- КНОПКИ ИНВЕНТАРЯ ----------
         document.getElementById('btn-shop')?.addEventListener('click', function() {
             showToast('🛒 Магазин скоро откроется!', 'info', 2000);
         });
@@ -452,6 +447,7 @@
             showToast('📦 У вас пока нет предметов для открытия', 'info', 2000);
         });
 
+        // ---------- КНОПКИ ПРОФИЛЯ ----------
         document.getElementById('btn-bind-wallet')?.addEventListener('click', async function() {
             const wallet = document.getElementById('wallet-input').value.trim();
             if (!wallet || wallet.length < 10) {
@@ -498,7 +494,7 @@
         window.Telegram.WebApp.ready();
 
         // Показываем меню по умолчанию
-        showPage('page-menu');
+        window.switchPage('page-menu');
 
         // Загружаем профиль при старте
         setTimeout(function() {
